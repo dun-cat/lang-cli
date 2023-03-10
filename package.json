@@ -1,0 +1,41 @@
+{
+    "name": "translation-cli",
+    "version": "0.1.1-beta.8",
+    "description": "translation.json 导出翻译工具",
+    "main": "./dist/bin/command.js",
+    "bin": {
+        "tran": "./dist/bin/command.js"
+    },
+    "scripts": {
+        "dev": "tsc -p ./tsconfig.json --watch",
+        "lib": "npm run build",
+        "i": "npm run build && npm install . -g",
+        "rm": "rimraf dist",
+        "test:in": "node ./dist/bin/command.js import -s ./example/locales -i ./example/output/translated.xlsx --overwrite",
+        "test:out": "node ./dist/bin/command.js export -s ./example/locales -t ./example/output -f myfile -ot excel",
+        "build": "npm run rm && npm run build:ts",
+        "build:ts": "tsc -p ./tsconfig.json"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "adm-zip": "^0.5.9",
+        "commander": "^8.3.0",
+        "csv": "^5.5.3",
+        "fs-extra": "^10.0.0",
+        "glob": "^7.2.0",
+        "lodash": "^4.17.21",
+        "shorthash": "^0.0.2",
+        "xlsx": "^0.17.3"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.13",
+        "@types/glob": "^7.2.0",
+        "@types/lodash": "^4.14.176",
+        "@types/node": "^16.11.6",
+        "@types/prettier": "^2.4.1",
+        "prettier": "2.4.1",
+        "rimraf": "^3.0.2",
+        "typescript": "^4.4.4"
+    }
+}
