@@ -11,8 +11,8 @@
         "lib": "npm run build",
         "i": "npm run build && npm install . -g",
         "rm": "rimraf dist",
-        "test:in": "node ./dist/bin/command.js import -s ./example/locales -i ./example/output/translated.xlsx --overwrite",
-        "test:out": "node ./dist/bin/command.js export -s ./example/locales -t ./example/output -f myfile -ot excel",
+        "in": "node ./dist/bin/command.js import -s ./example/locales -i ./example/output/translated.xlsx --overwrite",
+        "out": "node ./dist/bin/command.js export -s ./example/locales -t ./example/output -f myfile -ot excel",
         "build": "npm run rm && npm run build:ts",
         "build:ts": "tsc -p ./tsconfig.json"
     },
@@ -25,6 +25,8 @@
         "fs-extra": "^10.0.0",
         "glob": "^7.2.0",
         "lodash": "^4.17.21",
+        "log4js": "^6.9.1",
+        "ora": "^6.1.2",
         "shorthash": "^0.0.2",
         "xlsx": "^0.17.3"
     },

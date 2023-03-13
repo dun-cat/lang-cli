@@ -1,7 +1,5 @@
 
-
 import parse = require("csv-parse/lib/sync");
-
 
 import fs from 'fs';
 import _ from 'lodash';
@@ -18,6 +16,7 @@ const doubleQuotation = (value: string) => {
 
 function jsonToExcel(sources: Source[], targetFile: string) {
   try {
+    console.log("source", sources)
     const content = jsonToDSL(sources);
 
     function sortByCompleteness(content: DSLData) {

@@ -1,6 +1,6 @@
 export type Source = {
-  name: string;
-  path: string;
+  name: string; // 国家语言码，值为 translation.json 父级目录名
+  path: string; // translation.json 文件路径
 }
 
 export type Sources = Source[];

@@ -1,9 +1,14 @@
 import xlsx from 'xlsx';
 import fse from "fs-extra";
 import sh from 'shorthash';
+var log4js = require("log4js");
+var logger = log4js.getLogger();
 import { DSLData, Source } from './types';
 import { isEmpty } from './utils';
 import { locales, reverseLocales } from './locales';
+// import ora from 'ora';
+
+const ora = require('ora');
 
 function walkJson(preKeyPath: string, json: Object, result: DSLData, visitor: (result: DSLData, currentKeyPath: string, value: string) => void) {
   const keys = Object.keys(json);
@@ -24,7 +29,14 @@ function walkJson(preKeyPath: string, json: Object, result: DSLData, visitor: (r
   }
 }
 
+/**
+ * 
+ * @param jsonPaths translation.json 文件路径
+ * @returns 
+ */
 const jsonToDSL = (jsonPaths: Source[]) => {
+  const spinner = ora('读取 translation.json 文件中...').start();
+
   const result: DSLData = {};
   const visitor = ([result, currentKeyPath, value], index: number) => {
     if (typeof result[currentKeyPath] === 'undefined') {
@@ -32,8 +44,15 @@ const jsonToDSL = (jsonPaths: Source[]) => {
     }
     result[currentKeyPath][index] = value;
   }
-  jsonPaths.forEach(({ path }, index: number) => {
-    const parsedJson = fse.readJsonSync(path);
+  jsonPaths.forEach(async ({ path }, index: number) => {
+    let parsedJson = null;
+    try {
+      spinner.text = `读取文件失败：${path}`
+      parsedJson = await fse.readJSON(path);
+    } catch (error) {
+      logger.error("Cheese is too ripe!");
+      throw `读取文件失败：${path}`;
+    }
     walkJson('', parsedJson, result, (...args) => visitor(args, index));
   });
   return result;
