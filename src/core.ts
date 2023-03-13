@@ -1,10 +1,9 @@
 import xlsx from 'xlsx';
 import fse from "fs-extra";
+import sh from 'shorthash';
 import { DSLData, Source } from './types';
 import { isEmpty } from './utils';
 import { locales, reverseLocales } from './locales';
-import sh from 'shorthash'
-
 
 function walkJson(preKeyPath: string, json: Object, result: DSLData, visitor: (result: DSLData, currentKeyPath: string, value: string) => void) {
   const keys = Object.keys(json);
