@@ -6,9 +6,7 @@ var logger = log4js.getLogger();
 import { DSLData, Source } from './types';
 import { isEmpty } from './utils';
 import { locales, reverseLocales } from './locales';
-// import ora from 'ora';
-
-const ora = require('ora');
+import ora from 'ora';
 
 function walkJson(preKeyPath: string, json: Object, result: DSLData, visitor: (result: DSLData, currentKeyPath: string, value: string) => void) {
   const keys = Object.keys(json);
